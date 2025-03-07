@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 import "./globals.css";
+import {
+  ClerkProvider,
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+} from '@clerk/nextjs'
+import { TRPCProvider } from "@/trpc/client";
+import { Toaster } from "sonner";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,12 +24,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl="/">
+      <html lang="en">
+        <body
+          className={inter.className}
+        >
+          <TRPCProvider>
+            <Toaster />
+            <NextSSRPlugin
+              routerConfig={extractRouterConfig(ourFileRouter)}
+            />
+            {children}
+          </TRPCProvider>
+
+        </body>
+      </html>
+    </ClerkProvider>
+
   );
 }
