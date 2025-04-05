@@ -4,6 +4,7 @@ import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, Side
 import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
 import Link from "next/link";
 import { useAuth, useClerk } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const items = [
     {
@@ -27,6 +28,8 @@ const items = [
 export const MainSection = () => {
     const { isSignedIn } = useAuth();
     const clerk = useClerk();
+    const pathname = usePathname();
+
     return (
         <SidebarGroup>
             <SidebarGroupContent>
@@ -35,7 +38,7 @@ export const MainSection = () => {
                         items.map((item) => (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton tooltip={item.title} asChild
-                                    isActive={false}  //TODO: Change to lokk at current pathname
+                                    isActive={pathname === item.url}
                                     onClick={(e) => {
                                         if (!isSignedIn && item.auth) {
                                             e.preventDefault();

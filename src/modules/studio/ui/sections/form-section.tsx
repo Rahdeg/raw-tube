@@ -24,6 +24,7 @@ import { THUMBNAILS_FALLBACK } from "@/lib/constant";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
 import { ThumbnailGenerateModal } from "../components/thumbnail-generate-modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BASEURL } from "@/constant";
 
 
 
@@ -170,7 +171,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     //     await update.mutateAsync(data);
     // }
 
-    const fullUrl = `${process.env.VERCEL_URL || "http://localhost:3000"}/videos/${video.id}`
+    const fullUrl = `${BASEURL}/videos/${video.id}`
     const [isCopied, setIsCopied] = useState(false);
 
     const onCopy = async () => {

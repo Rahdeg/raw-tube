@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { THUMBNAILS_FALLBACK } from '@/lib/constant';
 import { formatDuration } from '@/lib/utils';
 import Image from 'next/image'
@@ -8,6 +9,15 @@ interface VideoThumbnailProps {
     previewUrl?: string | null;
     title: string;
     duration: number;
+}
+
+export const VideoThumbnailSkeleton = () => {
+    return (
+        <div className='relative w-full overflow-hidden transition-all group-hover:rounded-none rounded-xl aspect-video'>
+            <Skeleton className='size-full' />
+
+        </div>
+    )
 }
 
 export const VideoThumbnail = ({ imageUrl, previewUrl, title, duration }: VideoThumbnailProps) => {
