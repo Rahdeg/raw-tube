@@ -114,7 +114,6 @@ export const userRelations = relations(users, ({ many }) => ({
   comments: many(comments),
   commentReactions: many(commentReactions),
   playlists: many(playlists),
-  playlistVideos: many(playlistVideos),
 }));
 
 export const categories = pgTable(
