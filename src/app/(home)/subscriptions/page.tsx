@@ -1,15 +1,16 @@
 import { DEFAULT_LIMIT } from '@/constant'
-import { LikedView } from '@/modules/playlists/ui/views/liked-view'
+import { SubscriptionsView } from '@/modules/subscriptions/ui/views/subscriptions-view'
 import { HydrateClient, trpc } from '@/trpc/server'
 export const dynamic = "force-dynamic";
 
 const Page = async () => {
-    void trpc.playlists.getLiked.prefetchInfinite({
+
+    void trpc.subscriptions.getMany.prefetchInfinite({
         limit: DEFAULT_LIMIT,
-    })
+    },)
     return (
         <HydrateClient>
-            <LikedView />
+            <SubscriptionsView />
         </HydrateClient>
     )
 }
